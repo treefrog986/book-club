@@ -14,5 +14,6 @@ export default function BookID(){
     <p>Name : {book.title}</p>
     <p>Author : {book.author}</p>
     <p>Genre : {book.genre}</p>
+    <p>Total pages : {book.totalpages}</p>
     </>)
 }

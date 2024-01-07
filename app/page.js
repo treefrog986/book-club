@@ -58,7 +58,7 @@ export default function Home() {
     </DialogTitle>
     <DialogContent>
       <Stack direction={'column'}>
-        <p>Username</p>
+        <p>Email</p>
       <TextField
       value = {signInCredentials.username}
       autoComplete='off'

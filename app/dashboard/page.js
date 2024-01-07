@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 export default function Dashboard(){
     const route = useRouter()
     const {data, setData} = useContext(AppContext)
-    const [newBook, setNewBook] = useState({title:"", author:"", genre:""})
+    const [newBook, setNewBook] = useState({title:"", author:"", genre:"", totalpages:0})
     const [bookDialog, setBookDialog] = useState(false)
     useEffect(()=>{
       const books = async ()=>{
@@ -47,6 +47,11 @@ export default function Dashboard(){
               <TextField
               value={newBook.genre}
               onChange={e=>setNewBook(p=>({...p, genre: e.target.value}))}
+              />
+              <p>Total Pages</p>
+              <TextField
+              value={newBook.totalpages}
+              onChange={e=>setNewBook(p=>({...p, totalpages: e.target.value}))}
               />
               <Button onClick={submitBook}>Submit</Button>
             </Stack>

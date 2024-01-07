@@ -61,8 +61,8 @@ export async function getBooks(id){
 export async function createBook(book, id){
 try{
     const res = await sql`
-    insert into personalbook (title, author, genre, person_id) 
-    values (${book.title}, ${book.author},${book.genre}, ${id})`
+    insert into personalbook (title, author, genre, totalpages, person_id) 
+    values (${book.title}, ${book.author},${book.genre},${book.totalpages}, ${id})`
     //console.log(res)
 } catch(error){
     console.log(error)
