@@ -56,7 +56,7 @@ export default function Dashboard(){
         <Button onClick={()=> setBookDialog(true)}>Add New book</Button>
         {data.books&&
         data.books.map(book=>
-          <p> {book.title}: {book.author} <Button onClick={()=>route.push(`/dashboard/${book.id}`)}> go to page</Button></p>
+          <p key={book.id}> {book.title}: {book.author} <Button onClick={()=>route.push(`/dashboard/${book.id}`)}> go to page</Button></p>
         )
         }
         </>
