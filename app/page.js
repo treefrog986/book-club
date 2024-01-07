@@ -58,11 +58,13 @@ export default function Home() {
     </DialogTitle>
     <DialogContent>
       <Stack direction={'column'}>
+        <p>Username</p>
       <TextField
       value = {signInCredentials.username}
       autoComplete='off'
       onChange={e=>setSignInCredentials(p=>({...p, username: e.target.value}))}
       />
+      <p>Password</p>
       <TextField
        value = {signInCredentials.password}
        autoComplete='off'
@@ -79,14 +81,17 @@ export default function Home() {
     <DialogTitle>Sign Up</DialogTitle>
     <DialogContent>
       <Stack direction={"column"}>
+        <p>Name</p>
         <TextField
         value = {newUserCredentials.name}
         onChange={e=>setNewUserCredentials(p=>({...p, name:e.target.value}))}
         />
+        <p>Email</p>
         <TextField
         value = {newUserCredentials.email}
         onChange={e=>setNewUserCredentials(p=>({...p, email:e.target.value}))}
         />
+        <p>Password</p>
         <TextField
         value = {newUserCredentials.password}
         onChange={e=>setNewUserCredentials(p=>({...p, password:e.target.value}))}
