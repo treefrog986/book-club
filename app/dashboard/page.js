@@ -5,7 +5,7 @@ import Link from "next/link"
 import { createBook, getBooks } from "../lib/server"
 import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button} from "@mui/material"
 import { useRouter } from "next/navigation"
-export default function dashboard(){
+export default function Dashboard(){
     const route = useRouter()
     const {data, setData} = useContext(AppContext)
     const [newBook, setNewBook] = useState({title:"", author:"", genre:""})
