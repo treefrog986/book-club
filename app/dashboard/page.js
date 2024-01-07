@@ -1,0 +1,72 @@
+"use client"
+import { useContext, useEffect, useState } from "react"
+import { AppContext} from "../context"
+import Link from "next/link"
+import { createBook, getBooks } from "../lib/server"
+import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button} from "@mui/material"
+import { useRouter } from "next/navigation"
+export default function dashboard(){
+    const route = useRouter()
+    const {data, setData} = useContext(AppContext)
+    const [newBook, setNewBook] = useState({title:"", author:"", genre:""})
+    const [bookDialog, setBookDialog] = useState(false)
+    useEffect(()=>{
+      const books = async ()=>{
+        const res = await getBooks(data.id)
+        console.log(res)
+        setData(p=>({...p, books:res}))
+      }
+      books()
+    },[])
+    const submitBook = async ()=>{
+       await createBook(newBook, data.id)
+       setBookDialog(false)
+       const res = await getBooks(data.id)
+       setData(p=>({...p, books:res}))
+    }
+    return(<>
+      {  data.isLoggedIn?
+        <>
+        <Dialog
+        open = {bookDialog}
+        >
+          <DialogTitle>Create New book</DialogTitle>
+          <DialogContent>
+            <Stack direction={"column"}>
+              <p>Title</p>
+              <TextField
+              value={newBook.title}
+              onChange={e=>setNewBook(p=>({...p, title: e.target.value}))}
+              />
+              <p>author</p>
+              <TextField
+              value={newBook.author}
+              onChange={e=>setNewBook(p=>({...p, author: e.target.value}))}
+              />
+              <p>Genre</p>
+              <TextField
+              value={newBook.genre}
+              onChange={e=>setNewBook(p=>({...p, genre: e.target.value}))}
+              />
+              <Button onClick={submitBook}>Submit</Button>
+            </Stack>
+          </DialogContent>
+        </Dialog>
+        <>Hello, {data.name}</>
+        <Button onClick={()=> setBookDialog(true)}>Add New book</Button>
+        {data.books&&
+        data.books.map(book=>
+          <p> {book.title}: {book.author} <Button onClick={()=>route.push(`/dashboard/${book.id}`)}> go to page</Button></p>
+        )
+        }
+        </>
+        :
+        <>You are not logged in</>}
+        <br/>
+
+
+        <Link href="/">Log Out</Link>
+        
+        </>
+    )
+}
