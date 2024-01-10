@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import { useEffect, useState } from 'react'
 import { createUser, login } from './lib/server'
-import { Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
+import { Alert, Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { AppContext } from './context'
 import { useContext } from 'react'
@@ -11,7 +11,8 @@ export default function Home() {
   const router = useRouter()
   const {setData} = useContext(AppContext)
   const [error, setError] = useState("")
-  const [signIn, setSignIn] = useState(false)
+  const [signIn, setSignIn] = useState(false);
+  const [signUpError, setSignUpError] = useState(false)
   const [signInCredentials, setSignInCredentials] = useState({username:"", password:""})
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [newUserCredentials, setNewUserCredentials] = useState({email:"", password:"", name:""})
@@ -26,13 +27,29 @@ export default function Home() {
         setError(res.error)
       }
 }
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
   async function signUp (){
-    const res = await createUser(newUserCredentials)
+
+    if(newUserCredentials.name.length===0
+      ||newUserCredentials.password.length<7
+      ||!validateEmail(newUserCredentials.email)){
+        setSignUpError(true)
+        return
+      }
+      const res = await createUser(newUserCredentials)
     if(!res.error){
      const res = await login(newUserCredentials.email, newUserCredentials.password)
+     console.log(res)
      setSignUpDialog(false)
      setData({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[]})
-      router.push(`/dashboard`)
+    router.push(`/dashboard`)
     }
   }
   useEffect(()=>{
@@ -96,6 +113,14 @@ export default function Home() {
         value = {newUserCredentials.password}
         onChange={e=>setNewUserCredentials(p=>({...p, password:e.target.value}))}
         />
+        {signUpError &&
+        <Alert severity='error'>
+          <p>Your login information</p>
+          <p>Must contain a name</p>
+          <p>Must contain a valid email</p>
+          <p>Must contain a password that is 7 or more characters</p>
+        </Alert>
+        }
         <Button onClick={signUp}>Sign Up</Button>
       </Stack>
     </DialogContent>
