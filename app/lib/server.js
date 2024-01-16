@@ -32,6 +32,9 @@ export async function login(username, pass){
         throw "Account does not exist"
     }
     const user = res[0]
+    if(!user){
+        throw "Account does not exist"
+    }
 
     const passwordMatch = await bcrypt.compare(pass, user.password)
     if(passwordMatch){ 
