@@ -68,3 +68,20 @@ try{
     console.log(error)
 }
 }
+
+export async function updateBook(bookID, userID, bookInput){
+    const book = {
+        currentpage: bookInput.currentpage
+    }
+    await sql`
+    update personalbook
+    set ${sql(book, 'currentpage')}
+    where id=${bookID} and person_id=${userID}
+    `   
+    const res = await sql`
+    select *
+    from personalbook
+    where id=${bookID}
+    `
+    return res[0]
+}

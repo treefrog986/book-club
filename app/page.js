@@ -69,6 +69,7 @@ const validateEmail = (email) => {
   return ( <>
   <Dialog
   open={signIn}
+  onClose={()=>setSignIn(false)}
   >
     <DialogTitle>
       Sign In
@@ -94,6 +95,7 @@ const validateEmail = (email) => {
   </Dialog>
   <Dialog
   open={signUpDialog}
+  onClose={()=>setSignUpDialog(false)}
   >
     <DialogTitle>Sign Up</DialogTitle>
     <DialogContent>

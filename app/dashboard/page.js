@@ -29,6 +29,7 @@ export default function Dashboard(){
         <>
         <Dialog
         open = {bookDialog}
+        onClose={()=>setBookDialog(false)}
         >
           <DialogTitle>Create New book</DialogTitle>
           <DialogContent>
@@ -38,7 +39,7 @@ export default function Dashboard(){
               value={newBook.title}
               onChange={e=>setNewBook(p=>({...p, title: e.target.value}))}
               />
-              <p>author</p>
+              <p>Author</p>
               <TextField
               value={newBook.author}
               onChange={e=>setNewBook(p=>({...p, author: e.target.value}))}
@@ -58,7 +59,9 @@ export default function Dashboard(){
           </DialogContent>
         </Dialog>
         <>Hello, {data.name}</>
+   
         <Button onClick={()=> setBookDialog(true)}>Add New book</Button>
+        <p>Your Library</p>
         {data.books&&
         data.books.map(book=>
           <p key={book.id}> {book.title}: {book.author} <Button onClick={()=>route.push(`/dashboard/${book.id}`)}> go to page</Button></p>
@@ -66,11 +69,15 @@ export default function Dashboard(){
         }
         </>
         :
-        <>You are not logged in</>}
+        <>
+        <p>You are not logged in</p>
+         <Link href="/">Log Out</Link>
+        
+        </>}
         <br/>
 
 
-        <Link href="/">Log Out</Link>
+
         
         </>
     )

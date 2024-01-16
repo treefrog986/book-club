@@ -23,7 +23,13 @@ export default function Layout({children}){
                 </ListItemText>
                 </ListItemButton>
             </ListItem>
-
+            <ListItem>
+                <ListItemButton onClick={()=>route.push("/")}>
+                <ListItemText>
+                    Log Out
+                </ListItemText>
+                </ListItemButton>
+            </ListItem>
 
         </Drawer>
         <div style={{marginLeft:150}}>
