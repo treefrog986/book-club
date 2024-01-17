@@ -73,12 +73,9 @@ try{
 }
 
 export async function updateBook(bookID, userID, bookInput){
-    const book = {
-        currentpage: bookInput.currentpage
-    }
     await sql`
     update personalbook
-    set ${sql(book, 'currentpage')}
+    set ${sql(bookInput, 'currentpage', 'title', 'author', 'genre', 'totalpages')}
     where id=${bookID} and person_id=${userID}
     `   
     const res = await sql`
@@ -87,4 +84,15 @@ export async function updateBook(bookID, userID, bookInput){
     where id=${bookID}
     `
     return res[0]
+}
+
+export async function deleteBook(bookID){
+    try{
+        await sql`
+        delete from personalbook
+        where id=${bookID}
+        `
+    }catch (error){
+        return {error:error}
+    }
 }
