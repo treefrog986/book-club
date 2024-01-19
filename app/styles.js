@@ -2,17 +2,21 @@ import { Button, DialogContent } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const Title = styled(DialogContent)(
-    () => `
-    background-color: rgb(130, 216, 245);
-  `,
+    {
+    backgroundColor:' rgb(96, 180, 223)',
+    color:'white'
+  }
   );
   
   export const SignInButton = styled(Button)(
-    () =>`
-    background-color: rgb(130, 216, 245);
-    color:white;
-    width:200px;
-    borderRadius:100px;
-    margin:10px
-    `
+  {
+    backgroundColor: 'rgb(78, 174, 206)',
+    '&:hover': {
+        background: "rgb(130, 205, 230)",
+      },
+    color:'white',
+    width:200,
+    borderRadius:'10px',
+    margin:'10px',
+    }
   )
