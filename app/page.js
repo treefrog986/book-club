@@ -1,12 +1,12 @@
 "use client"
 import Image from 'next/image'
-import styles from './page.module.css'
 import { useEffect, useState } from 'react'
 import { createUser, login } from './lib/server'
 import { Alert, Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { AppContext } from './context'
 import { useContext } from 'react'
+import { SignInButton, Title } from './styles'
 export default function Home() {
   const router = useRouter()
   const {setData} = useContext(AppContext)
@@ -71,9 +71,9 @@ const validateEmail = (email) => {
   open={signIn}
   onClose={()=>setSignIn(false)}
   >
-    <DialogTitle className={styles.title} >
+    <Title>
       Sign In
-    </DialogTitle>
+    </Title>
     <DialogContent>
       <Stack direction={'column'}>
         <p>Email</p>
@@ -89,7 +89,7 @@ const validateEmail = (email) => {
        onChange={e=>setSignInCredentials(p=>({...p, password: e.target.value}))}
       />
        {error && <p>{error}</p>}
-      <Button className={styles.signInButton} onClick={logIn}>Sign In</Button>
+      <Button onClick={logIn}>Sign In</Button>
       </Stack>
     </DialogContent>
   </Dialog>
@@ -97,7 +97,7 @@ const validateEmail = (email) => {
   open={signUpDialog}
   onClose={()=>setSignUpDialog(false)}
   >
-    <DialogTitle className={styles.title}>Sign Up</DialogTitle>
+    <Title>Sign Up</Title>
     <DialogContent>
       <Stack direction={"column"}>
         <p>Name</p>
@@ -123,13 +123,13 @@ const validateEmail = (email) => {
           <p>Must contain a password that is 7 or more characters</p>
         </Alert>
         }
-        <Button className={styles.signInButton}  onClick={signUp}>Sign Up</Button>
+        <Button onClick={signUp}>Sign Up</Button>
       </Stack>
     </DialogContent>
   </Dialog>
     <Stack direction={"column"} sx={{alignItems:"center", marginTop:40}}>
-  <Button className={styles.signInButton} onClick={()=>setSignIn(true)}>Sign In</Button>
-  <Button className={styles.signInButton} onClick={()=>setSignUpDialog(true)}>Sign Up</Button>
+  <SignInButton onClick={()=>setSignIn(true)}>Sign In</SignInButton>
+  <SignInButton onClick={()=>setSignUpDialog(true)}>Sign Up</SignInButton>
   </Stack>
   </div>
   )

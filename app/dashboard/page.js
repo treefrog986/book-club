@@ -2,7 +2,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AppContext} from "../context"
 import Link from "next/link"
-import styles from "../page.module.css"
 import { createBook, getBooks } from "../lib/server"
 import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button, Item, Grid} from "@mui/material"
 import { useRouter } from "next/navigation"
@@ -69,7 +68,7 @@ export default function Dashboard(){
           <Grid key={book.id} item xs={4}>
               <p>{book.title}</p>
               <p style={{color:"gray", fontSize:".8em"}}>By {book.author}</p>
-              <Button className={styles.bookButton} onClick={()=>route.push(`/dashboard/${book.id}`)}>View Book</Button>
+              <Button onClick={()=>route.push(`/dashboard/${book.id}`)}>View Book</Button>
           </Grid>
         )
         }
