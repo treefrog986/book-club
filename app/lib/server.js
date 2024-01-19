@@ -9,7 +9,6 @@ export async function createUser(user){
         Select * 
         from users 
         where email=${user.email}`
-        console.log(rows)
     if(rows.length>0){ throw "User with email already exists"}
         const hash = await bcrypt.hash(user.password, 10)
         await  sql`

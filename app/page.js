@@ -66,12 +66,12 @@ const validateEmail = (email) => {
     })
   }, [])
   
-  return ( <>
+  return ( <div>
   <Dialog
   open={signIn}
   onClose={()=>setSignIn(false)}
   >
-    <DialogTitle>
+    <DialogTitle className={styles.title} >
       Sign In
     </DialogTitle>
     <DialogContent>
@@ -89,7 +89,7 @@ const validateEmail = (email) => {
        onChange={e=>setSignInCredentials(p=>({...p, password: e.target.value}))}
       />
        {error && <p>{error}</p>}
-      <Button onClick={logIn}>Sign In</Button>
+      <Button className={styles.signInButton} onClick={logIn}>Sign In</Button>
       </Stack>
     </DialogContent>
   </Dialog>
@@ -97,7 +97,7 @@ const validateEmail = (email) => {
   open={signUpDialog}
   onClose={()=>setSignUpDialog(false)}
   >
-    <DialogTitle>Sign Up</DialogTitle>
+    <DialogTitle className={styles.title}>Sign Up</DialogTitle>
     <DialogContent>
       <Stack direction={"column"}>
         <p>Name</p>
@@ -123,13 +123,14 @@ const validateEmail = (email) => {
           <p>Must contain a password that is 7 or more characters</p>
         </Alert>
         }
-        <Button onClick={signUp}>Sign Up</Button>
+        <Button className={styles.signInButton}  onClick={signUp}>Sign Up</Button>
       </Stack>
     </DialogContent>
   </Dialog>
-  <Button onClick={()=>setSignIn(true)}>Sign In</Button>
-  <Button onClick={()=>setSignUpDialog(true)}>Sign Up</Button>
- 
-  </>
+    <Stack direction={"column"} sx={{alignItems:"center", marginTop:40}}>
+  <Button className={styles.signInButton} onClick={()=>setSignIn(true)}>Sign In</Button>
+  <Button className={styles.signInButton} onClick={()=>setSignUpDialog(true)}>Sign Up</Button>
+  </Stack>
+  </div>
   )
 }

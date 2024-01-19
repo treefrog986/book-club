@@ -2,8 +2,9 @@
 import { useContext, useEffect, useState } from "react"
 import { AppContext} from "../context"
 import Link from "next/link"
+import styles from "../page.module.css"
 import { createBook, getBooks } from "../lib/server"
-import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button} from "@mui/material"
+import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button, Item, Grid} from "@mui/material"
 import { useRouter } from "next/navigation"
 export default function Dashboard(){
     const route = useRouter()
@@ -62,12 +63,19 @@ export default function Dashboard(){
    
         <Button onClick={()=> setBookDialog(true)}>Add New book</Button>
         <p>Your Library</p>
+        <Grid container spacing={2}>
         {data.books&&
         data.books.map(book=>
-          <p key={book.id}> {book.title}: {book.author} <Button onClick={()=>route.push(`/dashboard/${book.id}`)}> go to page</Button></p>
+          <Grid key={book.id} item xs={4}>
+              <p>{book.title}</p>
+              <p style={{color:"gray", fontSize:".8em"}}>By {book.author}</p>
+              <Button className={styles.bookButton} onClick={()=>route.push(`/dashboard/${book.id}`)}>View Book</Button>
+          </Grid>
         )
         }
+        </Grid>
         </>
+        
         :
         <>
         <p>You are not logged in</p>

@@ -1,0 +1,12 @@
+.signInButton {
+    font-size: 200;
+    background-color:rgb(78, 174, 206);
+    color: white;
+    width: 200px;
+    margin:10px;
+    transition-duration: .5;
+  }
+
+  .signInButton:hover{
+    background-color: rgb(187, 96, 96) ;
+  }
