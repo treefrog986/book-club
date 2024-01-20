@@ -5,6 +5,7 @@ import Link from "next/link"
 import { createBook, getBooks } from "../lib/server"
 import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button, Item, Grid} from "@mui/material"
 import { useRouter } from "next/navigation"
+import { AddBookButton, ViewBookButton } from "../styles"
 export default function Dashboard(){
     const route = useRouter()
     const {data, setData} = useContext(AppContext)
@@ -60,7 +61,7 @@ export default function Dashboard(){
         </Dialog>
         <>Hello, {data.name}</>
    
-        <Button onClick={()=> setBookDialog(true)}>Add New book</Button>
+        <AddBookButton onClick={()=> setBookDialog(true)}>Add New book +</AddBookButton>
         <p>Your Library</p>
         <Grid container spacing={2}>
         {data.books&&
@@ -68,7 +69,7 @@ export default function Dashboard(){
           <Grid key={book.id} item xs={4}>
               <p>{book.title}</p>
               <p style={{color:"gray", fontSize:".8em"}}>By {book.author}</p>
-              <Button onClick={()=>route.push(`/dashboard/${book.id}`)}>View Book</Button>
+              <ViewBookButton onClick={()=>route.push(`/dashboard/${book.id}`)}>View Book</ViewBookButton>
           </Grid>
         )
         }

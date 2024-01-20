@@ -89,7 +89,7 @@ const validateEmail = (email) => {
        onChange={e=>setSignInCredentials(p=>({...p, password: e.target.value}))}
       />
        {error && <p>{error}</p>}
-      <Button onClick={logIn}>Sign In</Button>
+      <SignInButton onClick={logIn}>Sign In</SignInButton>
       </Stack>
     </DialogContent>
   </Dialog>
@@ -123,7 +123,7 @@ const validateEmail = (email) => {
           <p>Must contain a password that is 7 or more characters</p>
         </Alert>
         }
-        <Button onClick={signUp}>Sign Up</Button>
+        <SignInButton onClick={signUp}>Sign Up</SignInButton>
       </Stack>
     </DialogContent>
   </Dialog>

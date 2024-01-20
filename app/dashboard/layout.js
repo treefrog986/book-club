@@ -17,14 +17,39 @@ export default function Layout({children}){
         open={false}
         >
             <ListItem>
-                <ListItemButton onClick={()=>route.push("/dashboard")}>
+                <ListItemButton
+                sx={{
+                    backgroundColor:"red",
+                    borderColor:"red",
+                    color:'white',
+                    borderStyle:"solid",
+                    borderWidth:"1px",
+                    "&:hover":{
+                        backgroundColor:"white",
+                        color:"red",
+                        
+                    }
+                }}
+                onClick={()=>route.push("/dashboard")}>
                 <ListItemText>
                     Dashboard
                 </ListItemText>
                 </ListItemButton>
             </ListItem>
             <ListItem>
-                <ListItemButton onClick={()=>route.push("/")}>
+                <ListItemButton
+                sx={{
+                    backgroundColor:"green",
+                    borderColor:"green",
+                    color:'white',
+                    borderStyle:"solid",
+                    borderWidth:"1px",
+                    "&:hover":{
+                        backgroundColor:"white",
+                        color:"green",
+                    }
+                }}
+                onClick={()=>route.push("/")}>
                 <ListItemText>
                     Log Out
                 </ListItemText>
