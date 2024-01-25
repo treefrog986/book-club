@@ -10,12 +10,12 @@ import { deleteBook, getBooks, updateBook } from "@/app/lib/server";
 export default function BookID(){
     const route = useRouter()
     const {book_id} = useParams()
-    const {data} = useContext(AppContext)
-    const [book, setBook]= useState(data.books?.filter(x=>x.id===parseInt(book_id))[0])
-    const [newBook, setNewBook] = useState(data.books?.filter(x=>x.id===parseInt(book_id))[0])
+    const {user} = useContext(AppContext)
+    const [book, setBook]= useState(user.books?.filter(x=>x.id===parseInt(book_id))[0])
+    const [newBook, setNewBook] = useState(user.books?.filter(x=>x.id===parseInt(book_id))[0])
     const [editBook, setEditBook] = useState(false)
     const update = async ()=>{
-        const res = await updateBook(book_id,data.id, newBook)
+        const res = await updateBook(book_id,user.id, newBook)
         setBook(res)
         setNewBook(res)
     }

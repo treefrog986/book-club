@@ -3,30 +3,30 @@ import { useContext, useEffect, useState } from "react"
 import { AppContext} from "../context"
 import Link from "next/link"
 import { createBook, getBooks } from "../lib/server"
-import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button, Item, Grid} from "@mui/material"
+import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button, Grid} from "@mui/material"
 import { useRouter } from "next/navigation"
 import { AddBookButton, ViewBookButton } from "../styles"
 export default function Dashboard(){
     const route = useRouter()
-    const {data, setData} = useContext(AppContext)
+    const {user, setUser} = useContext(AppContext)
     const [newBook, setNewBook] = useState({title:"", author:"", genre:"", totalpages:0})
     const [bookDialog, setBookDialog] = useState(false)
     useEffect(()=>{
       const books = async ()=>{
-        const res = await getBooks(data.id)
+        const res = await getBooks(user.id)
         console.log(res)
-        setData(p=>({...p, books:res}))
+        setUser(p=>({...p, books:res}))
       }
       books()
     },[])
     const submitBook = async ()=>{
-       await createBook(newBook, data.id)
+       await createBook(newBook, user.id)
        setBookDialog(false)
-       const res = await getBooks(data.id)
-       setData(p=>({...p, books:res}))
+       const res = await getBooks(user.id)
+       setuser(p=>({...p, books:res}))
     }
     return(<>
-      {  data.isLoggedIn?
+     
         <>
         <Dialog
         open = {bookDialog}
@@ -59,13 +59,13 @@ export default function Dashboard(){
             </Stack>
           </DialogContent>
         </Dialog>
-        <>Hello, {data.name}</>
+        <>Hello, {user.name}</>
    
-        <AddBookButton onClick={()=> setBookDialog(true)}>Add New book +</AddBookButton>
+        <AddBookButton onClick={()=> setBookDialog(true)}>Add New Book +</AddBookButton>
         <p>Your Library</p>
         <Grid container spacing={2}>
-        {data.books&&
-        data.books.map(book=>
+        {user.books&&
+        user.books.map(book=>
           <Grid key={book.id} item xs={4}>
               <p>{book.title}</p>
               <p style={{color:"gray", fontSize:".8em"}}>By {book.author}</p>
@@ -76,12 +76,8 @@ export default function Dashboard(){
         </Grid>
         </>
         
-        :
-        <>
-        <p>You are not logged in</p>
-         <Link href="/">Log Out</Link>
         
-        </>}
+      
         <br/>
 
 

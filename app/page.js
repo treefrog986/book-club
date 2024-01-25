@@ -9,19 +9,20 @@ import { useContext } from 'react'
 import { SignInButton, Title } from './styles'
 export default function Home() {
   const router = useRouter()
-  const {setData} = useContext(AppContext)
+  const {setUser} = useContext(AppContext)
   const [error, setError] = useState("")
   const [signIn, setSignIn] = useState(false);
   const [signUpError, setSignUpError] = useState(false)
-  const [signInCredentials, setSignInCredentials] = useState({username:"", password:""})
+  const [signInCredentials, setSignInCredentials] = useState({email:"", password:""})
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [newUserCredentials, setNewUserCredentials] = useState({email:"", password:"", name:""})
-  async function logIn (){
-      const res = await login(signInCredentials.username, signInCredentials.password)
+  async function logIn (logInCredentials){
+      const res = await login(logInCredentials.email, logInCredentials.password)
       console.log(res)
       if(!res.error){
         setSignIn(false)
-        setData({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[]})
+        setUser({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[],
+        auth: res.auth})
         router.push(`/dashboard`)
       }else{
         setError(res.error)
@@ -45,11 +46,12 @@ const validateEmail = (email) => {
       }
       const res = await createUser(newUserCredentials)
     if(!res.error){
-     const res = await login(newUserCredentials.email, newUserCredentials.password)
-     console.log(res)
-     setSignUpDialog(false)
-     setData({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[]})
-    router.push(`/dashboard`)
+     const res = await logIn(newUserCredentials)
+    //  console.log(res)
+    //  setSignUpDialog(false)
+    //  setData({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[],
+    //   auth:res.auth})
+    // router.push(`/dashboard`)
     }
   }
   useEffect(()=>{
@@ -59,7 +61,7 @@ const validateEmail = (email) => {
     }
     
     //test()
-    setData({
+    setUser({
       isLoggedIn:false,
       email:"",
       name: ""
@@ -78,18 +80,19 @@ const validateEmail = (email) => {
       <Stack direction={'column'}>
         <p>Email</p>
       <TextField
-      value = {signInCredentials.username}
+      value = {signInCredentials.email}
       autoComplete='off'
-      onChange={e=>setSignInCredentials(p=>({...p, username: e.target.value}))}
+      onChange={e=>setSignInCredentials(p=>({...p, email: e.target.value}))}
       />
       <p>Password</p>
       <TextField
+      type="password"
        value = {signInCredentials.password}
        autoComplete='off'
        onChange={e=>setSignInCredentials(p=>({...p, password: e.target.value}))}
       />
        {error && <p>{error}</p>}
-      <SignInButton onClick={logIn}>Sign In</SignInButton>
+      <SignInButton onClick={()=>logIn(signInCredentials)}>Sign In</SignInButton>
       </Stack>
     </DialogContent>
   </Dialog>

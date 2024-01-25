@@ -4,9 +4,9 @@ import { createContext, useContext, useState } from "react"
 export const AppContext = createContext()
 
 export const AppContextProvider= ({children})=>{
-    const [data, setData] = useState({isLoggedIn:false})
+    const [user, setUser] = useState({isLoggedIn:false})
     return(
-        <AppContext.Provider value={{data, setData}}>
+        <AppContext.Provider value={{user, setUser}}>
             {children}
         </AppContext.Provider>
     )

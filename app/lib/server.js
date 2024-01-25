@@ -95,3 +95,25 @@ export async function deleteBook(bookID){
         return {error:error}
     }
 }
+
+export async function sendComment(comment, user){
+    try{
+        await sql`
+        insert into comments (comment, id)
+        values (${comment}, ${user})
+        `
+    }catch (error){
+        return {error:error}
+    }
+}
+
+export async function getComments(){
+    try{
+       const res = await sql`
+       select name, email, comment 
+       from users join comments on users.id=comments.id`
+       return res
+    }catch (error){
+        return {error:error}
+    }
+}
