@@ -110,7 +110,7 @@ export async function sendComment(comment, user){
 export async function getComments(){
     try{
        const res = await sql`
-       select name, email, comment 
+       select name, email, comment, comment_id
        from users join comments on users.id=comments.id`
        return res
     }catch (error){

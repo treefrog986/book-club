@@ -20,7 +20,7 @@ export default function Auth(){
     <p>Comments</p>
     <Grid container>
         {comments.map(comment=>
-            <Grid item xs={4}>
+            <Grid key={comment.comment_id} item xs={4}>
                 <p>{comment.comment}</p>
                 <p>{comment.name}</p>
                 </Grid>
