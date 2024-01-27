@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AppContextProvider>
-      <body className={inter.className}>{children}</body>
+      <body  style={{margin:0,  paddingTop:0}} >{children}</body>
     </AppContextProvider>
 
 

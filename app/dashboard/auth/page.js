@@ -16,8 +16,8 @@ export default function Auth(){
         }
         a()
     }, [])
-    return( user.auth? <>
-    <p>Comments</p>
+    return( user.auth? <div>
+    <p style={{margin:0, paddingTop:10}}>Comments</p>
     <Grid container>
         {comments.map(comment=>
             <Grid key={comment.comment_id} item xs={4}>
@@ -26,7 +26,7 @@ export default function Auth(){
                 </Grid>
             )}
     </Grid>
-    </>:
+    </div>:
     <>
     Not Authorized
     </>
