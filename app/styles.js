@@ -1,4 +1,4 @@
-import { Button, DialogContent } from "@mui/material";
+import { Button, DialogContent, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const Title = styled(DialogContent)(
@@ -47,3 +47,27 @@ export const Title = styled(DialogContent)(
         margin:'10px',
         }
       )
+
+  export const DrawerItem=({color, children, onClick})=>
+        <ListItem>
+          <ListItemButton
+          sx={{
+            backgroundColor:color,
+            borderColor:color,
+            color:'white',
+            borderStyle:"solid",
+            borderRadius:3,
+            borderWidth:"1px",
+            "&:hover":{
+                backgroundColor:"white",
+                color:color,
+                
+            }
+        }}
+        onClick={onClick}
+          >
+            <ListItemText>
+            {children}
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>

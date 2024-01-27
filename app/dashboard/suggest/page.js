@@ -12,15 +12,18 @@ export default function Suggest(){
     const [sending, setSending] = useState(false)
     const [success, setSucces] = useState(false)
     const send = async ()=>{
+        setSucces(false)
         setSending(true)
         await sendComment(comment, user.id)
+        setComment("")
         setSending(false)
         setSucces(true)
     }
     return(<div style={{display:"flex",justifyContent:"center"}}>
         <Stack>
-    <p>Suggestion</p>
+    <p>Feedback</p>
     <TextField
+    sx={{width:500}}
     value = {comment}
     onChange={e=>setComment(e.target.value)}
     multiline

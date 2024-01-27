@@ -3,11 +3,11 @@ import { Box, Drawer, ListItem, ListItemButton, ListItemText, Link } from "@mui/
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AppContext } from "../context";
+import { DrawerItem } from "../styles";
 
 export default function Layout({children}){
     const{user} = useContext(AppContext)
     const route = useRouter()
-    const drawerWith = 300
     return( user.isLoggedIn?
         <div>
         <Drawer
@@ -15,83 +15,19 @@ export default function Layout({children}){
         anchor="left"
         open={false}
         >
-            <ListItem>
-                <ListItemButton
-                sx={{
-                    backgroundColor:"red",
-                    borderColor:"red",
-                    color:'white',
-                    borderStyle:"solid",
-                    borderWidth:"1px",
-                    "&:hover":{
-                        backgroundColor:"white",
-                        color:"red",
-                        
-                    }
-                }}
-                onClick={()=>route.push("/dashboard")}>
-                <ListItemText>
-                    Dashboard
-                </ListItemText>
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                sx={{
-                    backgroundColor:"orange",
-                    borderColor:"orange",
-                    color:'white',
-                    borderStyle:"solid",
-                    borderWidth:"1px",
-                    "&:hover":{
-                        backgroundColor:"white",
-                        color:"orange",
-                    }
-                }}
-                onClick={()=>route.push("/dashboard/suggest")}>
-                <ListItemText>
-                    Suggestions
-                </ListItemText>
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                sx={{
-                    backgroundColor:"green",
-                    borderColor:"green",
-                    color:'white',
-                    borderStyle:"solid",
-                    borderWidth:"1px",
-                    "&:hover":{
-                        backgroundColor:"white",
-                        color:"green",
-                    }
-                }}
-                onClick={()=>route.push("/")}>
-                <ListItemText>
-                    Log Out
-                </ListItemText>
-                </ListItemButton>
-            </ListItem>
-            {user.auth && <ListItem>
-                <ListItemButton
-                sx={{
-                    backgroundColor:"blue",
-                    borderColor:"blue",
-                    color:'white',
-                    borderStyle:"solid",
-                    borderWidth:"1px",
-                    "&:hover":{
-                        backgroundColor:"white",
-                        color:"blue",
-                    }
-                }}
-                onClick={()=>route.push("/dashboard/auth")}>
-                <ListItemText>
-                    Auth
-                </ListItemText>
-                </ListItemButton>
-            </ListItem>}
+            <p style={{alignSelf:"center"}}>Hello, {user.name}</p>
+            <DrawerItem color="red" onClick={()=>route.push("/dashboard")}>
+               Dashboard
+            </DrawerItem>
+            <DrawerItem color="orange" onClick={()=>route.push("/dashboard/suggest")}>
+                Feedback
+            </DrawerItem>
+            <DrawerItem color="green" onClick={()=>route.push("/")}>
+                Logout
+            </DrawerItem>
+            {user.auth && <DrawerItem color="blue" onClick={()=>route.push("/dashboard/auth")}>
+                Auth
+            </DrawerItem>}
 
         </Drawer>
         <div style={{marginLeft:160}}>

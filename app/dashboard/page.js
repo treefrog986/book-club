@@ -59,7 +59,6 @@ export default function Dashboard(){
             </Stack>
           </DialogContent>
         </Dialog>
-        <>Hello, {user.name}</>
    
         <AddBookButton onClick={()=> setBookDialog(true)}>Add New Book +</AddBookButton>
         <p>Your Library</p>
