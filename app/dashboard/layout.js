@@ -4,12 +4,11 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AppContext } from "../context";
 import { DrawerItem } from "../styles";
-import styles from "../page.module.css"
 export default function Layout({children}){
     const{user} = useContext(AppContext)
     const route = useRouter()
     return( user.isLoggedIn?
-        <div style={{backgroundColor:"tan", minHeight:"100vh" }} >
+        <div >
         <Drawer
         variant="permanent"
         PaperProps={{

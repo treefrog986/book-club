@@ -19,7 +19,7 @@ export default function BookID(){
         setBook(res)
         setNewBook(res)
     }
-    return(book&&<>
+    return(book&&<div>
      <Dialog
         open = {editBook}
         onClose={()=>setEditBook(false)}
@@ -27,7 +27,7 @@ export default function BookID(){
           <DialogTitle>Edit book</DialogTitle>
           <DialogContent>
             <Stack direction={"column"}>
-              <p>Title</p>
+              <p >Title</p>
               <TextField
               value={newBook.title}
               onChange={e=>setNewBook(p=>({...p, title: e.target.value}))}
@@ -78,5 +78,5 @@ export default function BookID(){
     >
         Edit
     </Button>
-    </>)
+    </div>)
 }
