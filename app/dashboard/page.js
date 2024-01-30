@@ -23,7 +23,7 @@ export default function Dashboard(){
        await createBook(newBook, user.id)
        setBookDialog(false)
        const res = await getBooks(user.id)
-       setuser(p=>({...p, books:res}))
+       setUser(p=>({...p, books:res}))
     }
     return(<>
      
