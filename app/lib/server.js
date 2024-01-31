@@ -28,11 +28,11 @@ export async function login(username, pass){
     from users 
     where email=${username}`
     if(!res){
-        throw "Account does not exist"
+        throw ""
     }
     const user = res[0]
     if(!user){
-        throw "Account does not exist"
+        throw""
     }
 
     const passwordMatch = await bcrypt.compare(pass, user.password)
@@ -40,12 +40,13 @@ export async function login(username, pass){
         delete user.password
         return user
     } else{
-        throw "Password do not match"
+        throw ""
     }} catch(error){
         console.log(error)
-        return {error: error}
+        return {error:true}
     }
-}
+    }
+
 
 export async function getBooks(id){
     noStore()

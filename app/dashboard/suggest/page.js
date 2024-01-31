@@ -29,7 +29,17 @@ export default function Suggest(){
     multiline
     rows={5}
     />
-    <Button disabled={sending} onClick={send} >Send Comment</Button>
+    <Button 
+    sx={{
+        backgroundColor:"blue",
+        color:"white",
+        borderRadius:5,
+        width:300,
+        alignSelf:"center",
+        marginTop:5
+    }}
+     disabled={sending} 
+     onClick={send} >Send Comment</Button>
     {success&&
     <Alert severity="success">Your comment was submitted</Alert>}
     </Stack>

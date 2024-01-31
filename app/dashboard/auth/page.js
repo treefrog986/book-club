@@ -1,5 +1,6 @@
 "use client"
 import { AppContext } from "@/app/context"
+import useLoad from "@/app/lib/loadComponent"
 import { getComments } from "@/app/lib/server"
 import { Paper } from "@mui/material"
 import Grid from "@mui/system/Unstable_Grid/Grid"
@@ -9,15 +10,16 @@ import { useContext, useEffect, useState } from "react"
 export default function Auth(){
     const {user} = useContext(AppContext)
     const [comments, setComments] = useState([])
+    const [func, bool] = useLoad( async()=>{
+        const res = await getComments()
+        console.log(res)
+        setComments(res)
+    })
     useEffect(()=>{
-        const a= async()=>{
-            const res = await getComments()
-            console.log(res)
-            setComments(res)
-        }
-        a()
+        func()
     }, [])
-    return( user.auth? <div>
+    return( user.auth? 
+    bool?<div>
     <p >Comments</p>
     <Grid container spacing={1}>
         {comments.map(comment=>
@@ -29,7 +31,7 @@ export default function Auth(){
                 </Grid>
             )}
     </Grid>
-    </div>:
+    </div>:<p>Loading Comments</p>:
     <>
     Not Authorized
     </>

@@ -5,20 +5,21 @@ import Link from "next/link"
 import { createBook, getBooks } from "../lib/server"
 import { Dialog, DialogContent, DialogTitle, TextField, Stack, Button, Grid} from "@mui/material"
 import { useRouter } from "next/navigation"
+import useLoad from "../lib/loadComponent"
 import { AddBookButton, ViewBookButton } from "../styles"
+import loadComponent from "./loadingSkel"
 export default function Dashboard(){
     const route = useRouter()
     const {user, setUser} = useContext(AppContext)
+    const [func, bool] = useLoad(async()=>{const res = await getBooks(user.id)
+      setUser(p=>({...p, books:res}))})
+
     const [newBook, setNewBook] = useState({title:"", author:"", genre:"", totalpages:0})
     const [bookDialog, setBookDialog] = useState(false)
     useEffect(()=>{
-      const books = async ()=>{
-        const res = await getBooks(user.id)
-        console.log(res)
-        setUser(p=>({...p, books:res}))
-      }
-      books()
+      func()
     },[])
+
     const submitBook = async ()=>{
        await createBook(newBook, user.id)
        setBookDialog(false)
@@ -31,6 +32,8 @@ export default function Dashboard(){
         <Dialog
         open = {bookDialog}
         onClose={()=>setBookDialog(false)}
+        maxWidth={"sm"}
+        fullWidth
         >
           <DialogTitle>Create New book</DialogTitle>
           <DialogContent>
@@ -62,7 +65,7 @@ export default function Dashboard(){
    
         <AddBookButton onClick={()=> setBookDialog(true)}>Add New Book +</AddBookButton>
         <p>Your Library</p>
-        <Grid container spacing={2}>
+      {bool? <Grid container spacing={2}>
         {user.books&&
         user.books.map(book=>
           <Grid key={book.id} item xs={4}>
@@ -73,6 +76,8 @@ export default function Dashboard(){
         )
         }
         </Grid>
+        :<p>Loading</p>
+      }
         </>
         
         

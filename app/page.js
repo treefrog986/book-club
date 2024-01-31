@@ -10,22 +10,22 @@ import { SignInButton, Title } from './styles'
 export default function Home() {
   const router = useRouter()
   const {setUser} = useContext(AppContext)
-  const [error, setError] = useState("")
+  const [error, setError] = useState(false)
   const [signIn, setSignIn] = useState(false);
   const [signUpError, setSignUpError] = useState(false)
   const [signInCredentials, setSignInCredentials] = useState({email:"", password:""})
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [newUserCredentials, setNewUserCredentials] = useState({email:"", password:"", name:""})
+  
   async function logIn (logInCredentials){
       const res = await login(logInCredentials.email, logInCredentials.password)
-      console.log(res)
       if(!res.error){
         setSignIn(false)
         setUser({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[],
         auth: res.auth})
         router.push(`/dashboard`)
       }else{
-        setError(res.error)
+        setError(true)
       }
 }
 const validateEmail = (email) => {
@@ -46,21 +46,10 @@ const validateEmail = (email) => {
       }
       const res = await createUser(newUserCredentials)
     if(!res.error){
-     const res = await logIn(newUserCredentials)
-    //  console.log(res)
-    //  setSignUpDialog(false)
-    //  setData({isLoggedIn:true, email: res.email, name:res.name, id: res.id, books:[],
-    //   auth:res.auth})
-    // router.push(`/dashboard`)
+      await logIn(newUserCredentials)
     }
   }
   useEffect(()=>{
-    const test = async ()=>{
-     const res = await createUser({email:"eli02", password:"pass", name:"Eli"})
-  console.log(res)
-    }
-    
-    //test()
     setUser({
       isLoggedIn:false,
       email:"",
@@ -68,6 +57,16 @@ const validateEmail = (email) => {
     })
   }, [])
   
+  useEffect(()=>{
+    setNewUserCredentials({email:"", password:"", name:""})
+    setSignUpError(false)
+  }, [signUpDialog])
+
+  useEffect(()=>{
+    setSignInCredentials({email:"", password:""})
+    setError(false)
+  }, [signIn])
+
   return ( <div>
   <Dialog
   open={signIn}
@@ -91,14 +90,17 @@ const validateEmail = (email) => {
        autoComplete='off'
        onChange={e=>setSignInCredentials(p=>({...p, password: e.target.value}))}
       />
-       {error && <p>{error}</p>}
+      
       <SignInButton onClick={()=>logIn(signInCredentials)}>Sign In</SignInButton>
+      {error && <Alert severity='error'>Email or password invalid</Alert>}
       </Stack>
     </DialogContent>
   </Dialog>
   <Dialog
   open={signUpDialog}
   onClose={()=>setSignUpDialog(false)}
+  fullWidth
+  maxWidth={"sm"}
   >
     <Title>Sign Up</Title>
     <DialogContent>
