@@ -1,5 +1,5 @@
 "use server"
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
 import sql from './db';
 const bcrypt = require('bcrypt')
 
@@ -63,10 +63,9 @@ export async function getBooks(id){
 
 export async function createBook(book, id){
 try{
-    const res = await sql`
+    await sql`
     insert into personalbook (title, author, genre, totalpages, person_id) 
     values (${book.title}, ${book.author},${book.genre},${book.totalpages}, ${id})`
-    //console.log(res)
 } catch(error){
     console.log(error)
 }

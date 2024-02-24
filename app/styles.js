@@ -37,12 +37,12 @@ export const Title = styled(DialogContent)(
 
     export const AddBookButton= styled(Button)(
       {
-        backgroundColor: 'rgb(36, 209, 17)',
+        backgroundColor: 'rgb(25, 102, 158)',
         '&:hover': {
-          background: "rgb(36, 209, 17)",
+          background: "rgb(74, 143, 194)",
         },
         color:'white',
-        width:200,
+        width:120,
         borderRadius:'10px',
         margin:'10px',
         }

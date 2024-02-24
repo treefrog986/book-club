@@ -1,19 +1,25 @@
 "use client"
 import { Box, Drawer, ListItem, ListItemButton, ListItemText, Link } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../context";
 import { DrawerItem } from "../styles";
 export default function Layout({children}){
     const{user} = useContext(AppContext)
     const route = useRouter()
+
+    useEffect(()=>{
+        if(!user.isLoggedIn){
+            route.push("/")
+        }
+    }, [ ])
     return( user.isLoggedIn?
         <div >
         <Drawer
         variant="permanent"
         PaperProps={{
             sx: {
-              backgroundColor: "rgb(209, 131, 59)",
+              backgroundColor: "rgb(138, 206, 255)",
               color:"white",
               width:160
             }
@@ -21,7 +27,7 @@ export default function Layout({children}){
         anchor="left"
         open={false}
         >
-            <p style={{alignSelf:"center"}}>Hello, {user.name}</p>
+            <p style={{alignSelf:"center", color:"black"}}>Hello, {user.name}</p>
             <DrawerItem color="rgb(181, 90, 11)" onClick={()=>route.push("/dashboard")}>
                Dashboard
             </DrawerItem>
@@ -42,9 +48,7 @@ export default function Layout({children}){
         </div>
         :
         <>
-        <p>You are not logged in</p>
-         <Link href="/">Log Out</Link>
-        
+        Redirecting you to the homepage...
         </>
     )
 }

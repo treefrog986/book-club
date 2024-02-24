@@ -132,7 +132,9 @@ const validateEmail = (email) => {
       </Stack>
     </DialogContent>
   </Dialog>
-    <Stack direction={"column"} sx={{alignItems:"center", marginTop:40}}>
+    <Stack direction={"column"} sx={{alignItems:"center", marginTop:30}}>
+      <p>The Book Club</p>
+      <p>A website for book clubs and book worms</p>
   <SignInButton onClick={()=>setSignIn(true)}>Sign In</SignInButton>
   <SignInButton onClick={()=>setSignUpDialog(true)}>Sign Up</SignInButton>
   </Stack>
